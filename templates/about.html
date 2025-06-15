@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Avanti-About{% endblock title %}
+
+{% block content %}
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title accent-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">About</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li class="current">About</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+     <section id="team" class="team section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Avanti’s Story</h2>
+        <p>AVANTI GLOBAL SRL is a leading sourcing and consultancy firm specializing in providing comprehensive solutions for the inflight catering sector. With years of experience and     in-depth industry knowledge, we are dedicated to assisting airlines, catering companies, and inflight service providers in optimizing their procurement processes, enhancing operational efficiency, and delivering exceptional inflight dining experiences.</p>
+      </div><!-- End Section Title -->
+
+    </section>
+
+      <section id="services" class="services section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Our Approach</h2>
+        
+      </div><!-- End Section Title -->
+        <div class="container">
+
+        <div class="row gy-4">
+
+         
+          {% for qs in ourapp  %}
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item item-teal position-relative">
+              <div class="icon">
+                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,541.5067337569781C382.14930387511276,545.0595476570109,479.8736841581634,548.3450877840088,526.4010558755058,480.5488172755941C571.5218469581645,414.80211281144784,517.5187510058486,332.0715597781072,496.52539010469104,255.14436215662573C477.37192572678356,184.95920475031193,473.57363656557914,105.61284051026155,413.0603344069578,65.22779650032875C343.27470386102294,18.654635553484475,251.2091493199835,5.337323636656869,175.0934190732945,40.62881213300186C97.87086631185822,76.43348514350839,51.98124368387456,156.15599469081315,36.44837278890362,239.84606092416172C21.716077023791087,319.22268207091537,43.775223500013084,401.1760424656574,96.891909868211,461.97329694683043C147.22146801428983,519.5804099606455,223.5754009179313,538.201503339737,300,541.5067337569781"></path>
+                </svg>
+                <i class="bi bi-easel"></i>
+              </div>
+              <a href="{% url 'services' %}" class="stretched-link">
+                <h3>{{qs.approach_header}}</h3>
+              </a>
+              <p>{{qs.approach_line}}</p>
+            </div>
+          </div><!-- End Service Item -->
+          {% endfor %}
+
+        </div>
+
+      </div>
+
+
+    </section>
+
+      <section id="team" class="team section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Why Choose Us </h2>
+        
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-4">
+          {% for qs in chooseus %}
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+            <div class="team-member">
+              <div class="member-img">
+                <img src="{{qs.image.url}}" class="img-fluid" alt="">
+              
+              </div>
+              <div class="member-info">
+                <h4>{{qs.chooseus_header}}</h4>
+                <span>{{qs.chooseus_line}}</span>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+          {% endfor %}
+         
+
+        </div>
+
+      </div>
+
+    </section><!-- /Team Section -->
+
+
+    <!-- Clients Section -->
+    <section id="clients" class="clients section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Clients</h2>
+        
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row g-0 clients-wrap">
+          {% for client in clients  %}
+          <div class="col-xl-3 col-md-4 client-logo">
+            <img src="{{client.image.url}}" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+          {% endfor %}
+          
+
+        </div>
+
+      </div>
+
+    </section><!-- /Clients Section -->
+
+  </main>
+
+
+
+{% endblock content %}
