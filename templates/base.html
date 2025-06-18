@@ -6,13 +6,10 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title> 
-    
-    
-    {% block title %}{% endblock title %}
-
-
-
+ 
+  {% block title %}{% endblock title %}
   </title>
+  <link rel="icon" href="{% static 'logo-removebg-preview-small.png' %}" type="image/png">
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -59,7 +56,7 @@
         <ul>
           <li><a href="{% url 'index' %}" class="active">Home</a></li>
           <li><a href="{% url 'services' %}">Services</a></li>
-          <li><a href="{% url 'products' %}"><span>Products</span> </a></li>
+          <li><a href="{% url 'products' %}">Products</span> </a></li>
            <li><a href="{% url 'about' %}"><span>About</span> </a></li>
           <li><a href="{% url 'contact' %}">Contact</a></li>
         </ul>
@@ -101,6 +98,7 @@
           <ul>
             <li><a href="{% url "index" %}">Home</a></li>
             <li><a href="{% url "about" %}">About us</a></li>
+            <li><a href="{% url "products" %}">Products</a></li>
             <li><a href="{% url "services" %}">Services</a></li>
             <li><a href="{% url "contact" %}">Contact</a></li>
            
@@ -145,17 +143,44 @@
 
   <!-- Main JS File -->
   <script src="{% static 'js/main.js' %}"></script>
-  <script async src="https://www.googletaggle.com/gtag/js?id=G-CZHL4SNW3D"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
+  <!-- Google tag (gtag.js) -->
+<!-- Google Tag Manager (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CZHL4SNW3D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  
-  // Configure for both production and development
-  gtag('config', 'G-CZHL4SNW3D', {
-    'debug_mode': true,  // Enable debug mode
-    'send_page_view': true  // Ensure page views are sent
-  });
-  </script>
+
+  // Environment Detection
+  const isLocalDev = window.location.hostname === 'localhost';
+  const isStaging = window.location.hostname.includes('staging.');
+  const isProduction = window.location.hostname === 'yourdomain.com';
+
+  // Debug Mode Configuration (for local/staging)
+  if (isLocalDev || isStaging) {
+    console.log('[GA4] Debug mode active - data NOT sent to production');
+    gtag('config', 'G-CZHL4SNW3D', {
+      debug_mode: true,
+      page_title: document.title,
+      page_location: window.location.href,
+      page_path: window.location.pathname,
+      send_page_view: true
+    });
+
+    // Enhanced debug logging
+    window.addEventListener('gtag.js', function(event) {
+      console.debug('[GA4 Event]', event.detail);
+    });
+  } 
+  // Production Configuration
+  else {
+    gtag('config', 'G-CZHL4SNW3D', {
+      debug_mode: false,
+      send_page_view: true,
+      cookie_flags: 'SameSite=None;Secure',
+      anonymize_ip: true // GDPR compliance
+    });
+  }
+</script>
 
 </body>

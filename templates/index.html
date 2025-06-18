@@ -46,20 +46,23 @@
     <div class="row align-items-center">  <!-- Added align-items-center -->
       <!-- Image Column - adjusted to col-lg-6 -->
       <div class="col-lg-6 about-img" data-aos="zoom-out" data-aos-delay="200">
-        <img src="{% static 'main2.jpg' %}" class="img-fluid rounded" alt="Sourcing Solutions">  <!-- Fixed img tag and added responsive classes -->
+        {% if our_story.image %}
+        <img src="{{ our_story.image.url }}" class="img-fluid rounded" alt="Sourcing Solutions"> 
+        {% else %}
+         <img src="{% static "main2.jpg" %}" class="img-fluid rounded" alt="Sourcing Solutions"> 
+        {% endif %}
+        <!-- Fixed img tag and added responsive classes -->
       </div>
 
       <!-- Text Column - adjusted to col-lg-6 -->
       <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
         <div class="container" data-aos="fade-up">
-        <h2>Our Story</h2>
-           <p>AVANTI GLOBAL SRL is a leading sourcing and consultancy firm specializing in providing comprehensive solutions for the inflight catering sector. With years of experience and in-depth industry knowledge, we are dedicated to assisting airlines, catering companies, and inflight service providers in optimizing their procurement processes, enhancing operational efficiency, and delivering exceptional inflight dining experiences.</p>
+        <h2>{{our_story.name}}</h2>
+           <p>{{our_story.description}}</p>
          <ul class="list-unstyled">
-                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> <span>Tailored Solutions</span></li>
-                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> <span>Sourcing Expertise</span></li>
-                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> <span>Consultancy Excellence</span></li>
-                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> <span>Industry Expertise</span></li>
-                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> <span>Partnership and Collaboration</span></li>
+                {% for qs in ourapp %}
+                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> <span>{{qs.approach_header}}</span></li>
+               {% endfor %}
             </ul>
              <div class=" d-flex align-items-center position-relative">
                 <a href="{% url 'about' %}" type="button" class="btn btn-outline-success">Read More</a>

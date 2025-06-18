@@ -27,6 +27,51 @@
       </div><!-- End Section Title -->
 
   </section>
+
+{% for category in categories %}
+  <section class="py-5">
+    <div class="container">
+      <div class="row align-items-stretch">
+        <!-- Image Column (alternates left/right) -->
+        <div class="col-lg-6 d-flex align-items-center {% if forloop.counter|divisibleby:2 %}order-lg-2{% endif %}" 
+             data-aos="zoom-out" data-aos-delay="200">
+          <div class="w-100">
+            {% if category.image %}
+              <img src="{{ category.image.url }}" 
+                   class="img-fluid rounded shadow" 
+                   alt="{{ category.name }}"
+                   style="max-height: 400px; object-fit: cover;">
+            {% else %}
+              <img src="{% static 'products1.jpg' %}" 
+                   class="img-fluid rounded shadow" 
+                   alt="{{ category.name }}"
+                   style="max-height: 400px; object-fit: cover;">
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Text Column -->
+        <div class="col-lg-6 d-flex align-items-center" data-aos="fade-up" data-aos-delay="100">
+          <div class="p-4 w-100">
+            <h2 class="mb-4">{{ category.name }}</h2>
+            <ul class="list-unstyled mb-4">
+              {% for product in category.category.all %}
+                <li class="mb-3 py-1">
+                  <i class="bi bi-check-circle text-success me-2"></i>
+                  {{ product.name }}
+                </li>
+              {% empty %}
+                <li class="text-muted">No products in this category yet</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endfor %}
+
+{% comment %} 
   <section class="py-5">
   <div class="container">
     <div class="row align-items-stretch">  <!-- Changed to stretch for equal height -->
@@ -290,7 +335,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> {% endcomment %}
 
 <section id="team" class="team section light-background">
 
