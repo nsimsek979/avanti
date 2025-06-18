@@ -26,7 +26,14 @@ SECRET_KEY = "django-insecure-1z0jguk7%pr_cd!os^%@c9xsd&4vnm*db8l#rge(@urc%_ki^6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+ '.vercel.app',
+    '.now.sh',
+    '127.0.0.1',
+    'localhost'
+
+
+]
 
 
 # Application definition
@@ -122,10 +129,13 @@ GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = "static/"
-STATICFILES_DIRS = [
-    BASE_DIR / "static",  
-]
+# Static files config
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+
+# For Vercel URL patterns
+FORCE_SCRIPT_NAME = '/'
 
 MEDIA_URL = '/media/'  # URL prefix for media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Local filesystem path
