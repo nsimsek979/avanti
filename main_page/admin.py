@@ -19,3 +19,5 @@ admin.site.register(Service)
 admin.site.register(Products)
 admin.site.register(ProductCategory)
 admin.site.register(Adress)
+
+

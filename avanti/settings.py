@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import django_heroku
+import dj_database_url
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,14 +28,7 @@ SECRET_KEY = "django-insecure-1z0jguk7%pr_cd!os^%@c9xsd&4vnm*db8l#rge(@urc%_ki^6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
- '.vercel.app',
-    '.now.sh',
-    '127.0.0.1',
-    'localhost'
-
-
-]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -58,6 +53,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "main_page.middleware.VisitorTrackingMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 
@@ -85,13 +81,10 @@ TEMPLATES = [
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
 
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -131,9 +124,10 @@ GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
 
 # Static files config
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
+django_heroku.settings(locals())
 # For Vercel URL patterns
 FORCE_SCRIPT_NAME = '/'
 
