@@ -1,0 +1,351 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Avanti-Products{% endblock title %}
+
+{% block content %}
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title accent-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">Products</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li class="current">Portfolio</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+  <section id="team" class="team section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Our Products</h2>
+        <p>Explore our Product range as your trusted sourcing partner, where quality and reliability meet to streamline your supply chain needs. Uncover the best sourcing solutions for your business right here.</p>
+      </div><!-- End Section Title -->
+
+  </section>
+
+{% for category in categories %}
+  <section class="py-5">
+    <div class="container">
+      <div class="row align-items-stretch">
+        <!-- Image Column (alternates left/right) -->
+        <div class="col-lg-6 d-flex align-items-center {% if forloop.counter|divisibleby:2 %}order-lg-2{% endif %}" 
+             data-aos="zoom-out" data-aos-delay="200">
+          <div class="w-100">
+            {% if category.image %}
+              <img src="{{ category.image.url }}" 
+                   class="img-fluid rounded shadow" 
+                   alt="{{ category.name }}"
+                   style="max-height: 400px; object-fit: cover;">
+            {% else %}
+              <img src="{% static 'products1.jpg' %}" 
+                   class="img-fluid rounded shadow" 
+                   alt="{{ category.name }}"
+                   style="max-height: 400px; object-fit: cover;">
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Text Column -->
+        <div class="col-lg-6 d-flex align-items-center" data-aos="fade-up" data-aos-delay="100">
+          <div class="p-4 w-100">
+            <h2 class="mb-4">{{ category.name }}</h2>
+            <ul class="list-unstyled mb-4">
+              {% for product in category.category.all %}
+                <li class="mb-3 py-1">
+                  <i class="bi bi-check-circle text-success me-2"></i>
+                  {{ product.name }}
+                </li>
+              {% empty %}
+                <li class="text-muted">No products in this category yet</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endfor %}
+
+{% comment %} 
+  <section class="py-5">
+  <div class="container">
+    <div class="row align-items-stretch">  <!-- Changed to stretch for equal height -->
+      <!-- Image Column -->
+      <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+        <div class="w-100">  <!-- Added wrapper div -->
+          <img src="{% static 'products1.jpeg' %}" 
+               class="img-fluid rounded shadow" 
+               alt="Meals and Snacks"
+               style="max-height: 400px; object-fit: cover;">  <!-- Added max-height constraint -->
+        </div>
+      </div>
+
+      <!-- Text Column -->
+      <div class="col-lg-6 d-flex align-items-center" data-aos="fade-up" data-aos-delay="100">
+        <div class="p-4 w-100">  <!-- Added padding and full width -->
+          <h2 class="mb-4">Meals and Snacks</h2>  <!-- Added margin bottom -->
+          <ul class="list-unstyled mb-4">  <!-- Added margin bottom -->
+            <li class="mb-3 py-1">  <!-- Increased spacing -->
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Breakfast, lunch, dinner, and snack options
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Sandwiches, wraps, and salads
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Fresh fruits and cut vegetables
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Desserts and pastries
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+
+<section class="py-5">  <!-- Added vertical padding -->
+  <div class="container">
+    <div class="row align-items-stretch">  <!-- Changed to stretch for equal height -->
+    
+
+      <!-- Text Column -->
+      <div class="col-lg-6 d-flex align-items-center" data-aos="fade-up" data-aos-delay="100">
+        <div class="p-4 w-100">  <!-- Added padding and full width -->
+          <h2 class="mb-4">Beverages</h2>  <!-- Added margin bottom -->
+          <ul class="list-unstyled mb-4">  <!-- Added margin bottom -->
+            <li class="mb-3 py-1">  <!-- Increased spacing -->
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Soft drinks (carbonated and non-carbonated)
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Bottled water
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Coffee and tea (including herbal and specialty teas)
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Fruit juices
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Alcoholic beverages (wine, beer, spirits)
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Energy drinks
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+
+        <!-- Image Column -->
+      <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+        <div class="w-100">  <!-- Added wrapper div -->
+          <img src="{% static 'products2.jpg' %}" 
+               class="img-fluid rounded shadow" 
+               alt="Meals and Snacks"
+               style="max-height: 400px; object-fit: cover;">  <!-- Added max-height constraint -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row align-items-stretch">  <!-- Changed to stretch for equal height -->
+      <!-- Image Column -->
+      <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+        <div class="w-100">  <!-- Added wrapper div -->
+          <img src="{% static 'products3.jpg' %}" 
+               class="img-fluid rounded shadow" 
+               alt="Meals and Snacks"
+               style="max-height: 400px; object-fit: cover;">  <!-- Added max-height constraint -->
+        </div>
+      </div>
+
+      <!-- Text Column -->
+      <div class="col-lg-6 d-flex align-items-center" data-aos="fade-up" data-aos-delay="100">
+        <div class="p-4 w-100">  <!-- Added padding and full width -->
+          <h2 class="mb-4">Inflight Amenities</h2>  <!-- Added margin bottom -->
+          <ul class="list-unstyled mb-4">  <!-- Added margin bottom -->
+            <li class="mb-3 py-1">  <!-- Increased spacing -->
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Napkins and tissues
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Cutlery sets (forks, knives, spoons)
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Cups and glasses
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Coasters
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Salt and pepper sachets
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Condiments (sugar, creamer, ketchup, mayonnaise,salad souces etc.)
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Wet wipes and refreshing towels
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="py-5">  <!-- Added vertical padding -->
+  <div class="container">
+    <div class="row align-items-stretch">  <!-- Changed to stretch for equal height -->
+    
+
+      <!-- Text Column -->
+      <div class="col-lg-6 d-flex align-items-center" data-aos="fade-up" data-aos-delay="100">
+        <div class="p-4 w-100">  <!-- Added padding and full width -->
+          <h2 class="mb-4">Packaging and Serving Materials</h2>  <!-- Added margin bottom -->
+          <ul class="list-unstyled mb-4">  <!-- Added margin bottom -->
+            <li class="mb-3 py-1">  <!-- Increased spacing -->
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Meal trays and containers
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Sealed meal packaging (for hygiene and freshness)
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Beverage cups with lids and straws
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Individual sauce and dressing packets
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Disposable cutlery and utensils
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Food wraps and covers
+            </li>
+             <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+             Oven-safe containers for reheating
+            </li>
+             <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Packaging Machines
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+
+        <!-- Image Column -->
+      <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+        <div class="w-100">  <!-- Added wrapper div -->
+          <img src="{% static 'products4.jpg' %}" 
+               class="img-fluid rounded shadow" 
+               alt="Meals and Snacks"
+               style="max-height: 400px; object-fit: cover;">  <!-- Added max-height constraint -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="py-5">
+  <div class="container">
+    <div class="row align-items-stretch">  <!-- Changed to stretch for equal height -->
+      <!-- Image Column -->
+      <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+        <div class="w-100">  <!-- Added wrapper div -->
+          <img src="{% static 'products5.jpeg' %}" 
+               class="img-fluid rounded shadow" 
+               alt="Meals and Snacks"
+               style="max-height: 400px; object-fit: cover;">  <!-- Added max-height constraint -->
+        </div>
+      </div>
+
+      <!-- Text Column -->
+      <div class="col-lg-6 d-flex align-items-center" data-aos="fade-up" data-aos-delay="100">
+        <div class="p-4 w-100">  <!-- Added padding and full width -->
+          <h2 class="mb-4">Equipment and Appliances</h2>  <!-- Added margin bottom -->
+          <ul class="list-unstyled mb-4">  <!-- Added margin bottom -->
+            <li class="mb-3 py-1">  <!-- Increased spacing -->
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Galley equipment (ovens, microwaves, coffee makers)
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Serving carts and trolleys
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Food warming and chilling units
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Chafing dishes and buffet equipment
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Beverage dispensers
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Water boilers
+            </li>
+            <li class="mb-3 py-1">
+              <i class="bi bi-check-circle text-success me-2"></i>
+              Airline-specific branded equipment (where applicable)
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section> {% endcomment %}
+
+<section id="team" class="team section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        
+        <p>AVANTI GLOBAL SRL is a leading sourcing and consultancy firm specializing in providing comprehensive solutions for the inflight catering sector. With years of experience and in-depth industry knowledge, we are dedicated to assisting airlines, catering companies, and inflight service providers in optimizing their procurement processes, enhancing operational efficiency, and delivering exceptional inflight dining experiences.</p>
+      </div><!-- End Section Title -->
+
+  </section>
+  
+  </main>
+{% endblock content %}

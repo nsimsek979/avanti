@@ -1,0 +1,149 @@
+{% extends "base.html" %}  <!-- Assuming you have a base template -->
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Website Analytics Dashboard</h1>
+    
+    <!-- Summary Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Total Visitors</h5>
+                    <h2 class="card-text">{{ all_count }}</h2>
+                    <p class="card-text"><small>All time</small></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">This Year</h5>
+                    <h2 class="card-text">{{ year_count }}</h2>
+                    <p class="card-text"><small>Last 365 days</small></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-title">This Month</h5>
+                    <h2 class="card-text">{{ month_count }}</h2>
+                    <p class="card-text"><small>Last 30 days</small></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title">This Week</h5>
+                    <h2 class="card-text">{{ week_count }}</h2>
+                    <p class="card-text"><small>Last 7 days</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Top Countries Table -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Visitor Locations</h3>
+        </div>
+        <div class="card-body">
+            {% if top_countries %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>Visitors</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for country in top_countries %}
+                        <tr>
+                            <td>{{ country.country }}</td>
+                            <td>{{ country.count }}</td>
+                            <td>{{ country.count|floatformat:2 }}%</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p>No country data available yet.</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Time-based Charts (Placeholder - would need Chart.js or similar) -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Visitors Over Time</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="visitorsChart" height="200"></canvas>
+                    <p class="text-muted mt-2">Chart would show daily/weekly visitor trends</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Traffic Sources</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="sourcesChart" height="200"></canvas>
+                    <p class="text-muted mt-2">Chart would show referral sources</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional: Add Chart.js for visualizations -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Example chart initialization (would need actual data from your views)
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('visitorsChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Monthly Visitors',
+                data: [120, 190, 170, 220, 300, 280],
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        }
+    });
+    
+    const ctx2 = document.getElementById('sourcesChart').getContext('2d');
+    new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            labels: ['Direct', 'Social', 'Referral', 'Search'],
+            datasets: [{
+                data: [300, 150, 100, 200],
+                backgroundColor: [
+                    '#4e73df',
+                    '#1cc88a',
+                    '#36b9cc',
+                    '#f6c23e'
+                ]
+            }]
+        }
+    });
+});
+</script>
+
+{% endblock %}
