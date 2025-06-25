@@ -1,1 +1,2 @@
-web: gunicorn avanti.wsgi 
+web: gunicorn avanti.wsgi --log-file -
+release: python manage.py migrate && npm run build
